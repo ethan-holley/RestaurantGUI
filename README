@@ -1,27 +1,83 @@
-This project simulates a restaurant from the perspective of a server.
+# Restaurant Ordering System (Java)
 
-In order to run the project, click run on LoginFrame (this class has the main method). From there, the GUI is loaded and the user can create account or log in. Then, once they
-are authenticated, they are presented with a menu. This menu allows the server to seat a table, take and order, print the bill, pay a bill and see their tips.
+## Overview
+A desktop application that simulates a restaurant ordering system from a server and manager perspective. The application allows staff to manage tables, process orders, and track billing and revenue in a structured and interactive environment.
 
-We created a special log in for the Manager. They have a set username and password (for simplicity of showing what the manager is able to see). To run the program from the
-perspective of the Manager, use username: "management" and password: "Manager!123".
+Built using Java and Swing, the project follows the Model-View-Controller (MVC) design pattern to ensure separation of concerns and scalability.
 
-DESIGN:
-This program is split into Model, View, and Controller.
-Data Structures/ Class Design: 
-    -HashMap in UserDatabase that maps the usernames to User objects (allowing for fast retrieval or users when they log in)                                                                                   
-    -Question ENUM for the security question (to avoid primitive obsession)
-    -Table ENUM for the tables (to avoid primitve obsession)                                                                 
-    -HashMap in Server that maps a Table to an ArrayList of Bills (this allows for easy look up of Tables for a Server)
-    -ArrayList of closed tabs (an ArrayList is okay because we don't need look up, we always need to loop through it to get all needed data)
-    -HashMap in Menu for all the drinks, appetizers, entrees, desserts, sides, and modifications and their costs (HashMap ensures look up is fast when taking orders)
-    -HashMap in Bill that maps items to costs (for fast look up when we need all of a particular item)
-Use of Interfaces:
-    -In Management, we needed to sort the items two ways (by frequency count and by highest revenue items). To do this, we imported the Comparator interface and implemented
-    the required compare()/ Collections.sort
-Encapsulation:
-    -When ever we use getters for the HashMaps or ArrayLists, we either return an unmodifiable Map or a copy. For the data structures that contain objects that are mutable
-    we do a deep copy to ensure that there are no escaping references. For example, for getUser() in UserDatabse, we return a copy of User because Users are mutable. In
-    getBillTable, which gets the Bills for the Table, we return an ArrayList that was a copy of Bills. 
-    
-    
+---
+
+## Features
+- User authentication (server and manager roles)
+- Table management and seating workflow
+- Order creation and bill generation
+- Payment processing and tip tracking
+- Manager dashboard for revenue and item analytics
+- Sorting of menu items by frequency and revenue
+
+---
+
+## Tech Stack
+- Java
+- Java Swing (GUI)
+- Object-Oriented Programming (OOP)
+- MVC Architecture
+
+---
+
+## System Design
+
+### Architecture
+The application is structured using the **Model-View-Controller (MVC)** pattern:
+- **Model**: Handles data, business logic, and state management  
+- **View**: GUI components built with Swing  
+- **Controller**: Manages user input and system interactions  
+
+---
+
+### Data Structures & Design Decisions
+- **HashMaps**
+  - UserDatabase: maps usernames → User objects for efficient authentication  
+  - Menu: maps menu items → prices for fast order processing  
+  - Bill: maps items → costs for quick aggregation  
+  - Server: maps tables → lists of bills for tracking active orders  
+
+- **ArrayLists**
+  - Used for collections where iteration is more important than lookup (e.g., closed tabs)
+
+- **Enums**
+  - Used for tables and security questions to avoid primitive overuse and improve type safety  
+
+---
+
+### Interfaces & Abstraction
+- Implemented the `Comparator` interface to support:
+  - Sorting menu items by frequency  
+  - Sorting by revenue contribution  
+
+---
+
+### Encapsulation
+- All internal data structures are protected through:
+  - Unmodifiable views or deep copies when returned  
+  - Prevention of external mutation (no escaping references)  
+
+Example:
+- User objects are returned as copies to preserve immutability  
+- Bill lists are returned as copied collections  
+
+---
+
+## How to Run
+1. Open the project in your IDE  
+2. Run the `LoginFrame` class (contains the main method)  
+3. Create an account or log in as a user  
+
+### Manager Login (Demo Access)
+- Username: `management`  
+- Password: `Manager!123`  
+
+---
+
+## Notes
+This project demonstrates strong use of object-oriented design principles, data structure selection, and separation of concerns in a real-world simulation scenario.
